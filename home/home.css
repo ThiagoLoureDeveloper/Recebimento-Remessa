@@ -1,17 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, black
-  , #4e4376);
+  background: linear-gradient(135deg, black, #4e4376);
   color: #fff;
   min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,44 +19,97 @@ body {
 
 .container {
   text-align: center;
+  width: 80%;
+}
+.container .cards {
+  margin-top: 30px;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 h1 {
-  margin-bottom: 40px;
-  font-size: 2rem;
+  margin-bottom: 50px;
+  font-size: 6vw;
   letter-spacing: 1px;
 }
 
 .cards {
   display: flex;
-  gap: 30px;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+/* Cards color */
+.cards .red {
+  background-color: #f43f5e;
+}
+
+.cards .blue {
+  background-color: #3b82f6;
+}
+
+/* Card padrão */
+.cards .card {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-}
+  flex-direction: column;
+  text-align: center;
 
-.card {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 25px;
-  width: 250px;
+  /* ✅ Responsivo */
+  width: 90%;
+  max-width: 350px;
+  height: 200px;
+
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: 400ms;
   text-decoration: none;
-  color: #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s, background 0.3s;
-  backdrop-filter: blur(10px);
+  transition: 400ms transform, 400ms box-shadow, 400ms background-color;
 }
 
-.card:hover {
-  transform: translateY(-8px);
-  background: rgba(255, 255, 255, 0.2);
+/* Textos */
+.cards .card p.tip {
+  font-size: 1.1em;
+  font-weight: 700;
 }
 
-.card h2 {
-  margin-bottom: 10px;
-  font-size: 1.3rem;
+.cards .card p.second-text {
+  font-size: 0.8em;
 }
 
-.card p {
-  font-size: 0.9rem;
+/* Hover */
+.cards .card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+
+.cards:hover > .card:not(:hover) {
+  filter: blur(2px);
+  transform: scale(0.95);
   opacity: 0.9;
+}
+
+/* ✅ Layout responsivo para telas maiores */
+@media (min-width: 600px) {
+  .cards {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cards .card {
+    width: 280px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cards .card {
+    width: 320px;
+  }
 }

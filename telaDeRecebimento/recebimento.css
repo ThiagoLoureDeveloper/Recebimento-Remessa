@@ -1,0 +1,351 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+/* ===== RESET E BASE ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f1f1f1;
+  padding: 10px;
+}
+
+h1,
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: #080303;
+}
+.item-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 60px;
+  gap: 15px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  margin-bottom: 20px; /* Espaço inferior opcional */
+}
+
+.custom-select {
+  width: 260px;
+  background: white;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  position: relative;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-select:hover {
+  border-color: #cc3030;
+}
+
+.custom-select .selected {
+  color: #555;
+}
+
+/* seta */
+.custom-select::after {
+  content: "▾";
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  pointer-events: none;
+}
+
+/* LISTA OCULTA */
+.options-list {
+  position: absolute;
+  top: 55px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  border: 2px solid #ccc;
+  padding: 6px 0;
+  list-style: none;
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+  transition: all 0.25s ease;
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.options-list.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.options-list li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.options-list li:hover {
+  background: #f3f3f3;
+}
+
+/* esconder o select real */
+.hidden-select {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 60px auto;
+  background: #87bac3;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: #ff4040;
+  border: 3px solid rgb(255, 201, 201);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.trash-icon {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  fill: none;
+  stroke: white;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.4s ease;
+}
+
+.bin-top {
+  transform-origin: center left;
+  transition: transform 0.3s ease;
+}
+
+.btn-remove:hover {
+  background-color: #d43f3f;
+  box-shadow: 0 0 10px #ff4d4d;
+}
+
+.btn-remove:hover .bin-top {
+  transform: rotate(-8deg) translateY(-2px);
+}
+
+.btn-remove:hover .trash-icon {
+  transform: translate(-50%, -50%) scale(1.25);
+}
+
+.btn-remove:active {
+  transform: scale(0.92);
+}
+
+/* ===== BOTÕES GERAIS ===== */
+.position-button {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+  width: 100%;
+}
+
+#addItem,
+button[type="submit"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 60px;
+  gap: 8px;
+  background-color: #cc3030;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+#addItem span,
+button[type="submit"] span {
+  opacity: 1;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 1;
+}
+
+#addItem svg,
+button[type="submit"] svg {
+  width: 30px;
+  height: 30px;
+  fill: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(90deg) scale(0);
+  transition: transform 0.4s ease;
+  z-index: 2;
+}
+
+/* ===== HOVER E ANIMAÇÕES DOS BOTÕES ===== */
+#addItem:hover span,
+button[type="submit"]:hover span {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+#addItem:hover svg,
+button[type="submit"]:hover svg {
+  transform: translate(-50%, -50%) rotate(0deg) scale(1.2);
+}
+
+#addItem:hover,
+button[type="submit"]:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #ff4d4d;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+@media (max-width: 768px) {
+  /* Centralização geral */
+  .container {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Crossdock e inputs grandes */
+  .custom-select-wrapper,
+  .custom-select,
+  .item-group input:nth-child(1),   /* Informe o Item */
+  .item-group input:nth-child(2) {
+    /* Adicionar Lote */
+    width: 100% !important;
+  }
+
+  /* Faz o grid virar coluna */
+  .item-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  /* Linha do Quantidade + Data */
+  .quantidade-data {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .quantidade-data input {
+    width: 50% !important;
+  }
+
+  /* Botão remover centralizado */
+  .btn-remove {
+    margin: 10px auto 0 auto !important;
+    align-self: center !important;
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Botões finais permanecem iguais */
+  #addItem,
+  button[type="submit"] {
+    width: 100%;
+    margin-top: 15px;
+  }
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  .item-group {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-remove {
+    width: 48px;
+    height: 48px;
+    align-self: flex-end;
+  }
+
+  .item-group input,
+  .item-group select {
+    font-size: 14px;
+  }
+
+  #addItem svg,
+  button[type="submit"] svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Extra pequenos (até 360px) */
+@media (max-width: 360px) {
+  .container {
+    padding: 15px;
+  }
+
+  .item-group {
+    gap: 8px;
+  }
+
+  #addItem,
+  button[type="submit"] {
+    width: 100%;
+  }
+}
